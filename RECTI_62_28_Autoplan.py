@@ -85,7 +85,7 @@ numEmpty = 0
 for rg in rois.RoiGeometries:
 	for v in VariableRois:
 		if (rg.OfRoi.Name == v):
-			if (rg.HasContours):
+			if ( rg.HasContours() ):
 				print 'Structure '+v+' exists and has contours.'
 			else:
 				numEmpty = numEmpty + 1

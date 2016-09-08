@@ -31,7 +31,8 @@ pm = case.PatientModel
 rois = pm.StructureSets[examination.Name]
 # --- the plan shall NOT be made without the following required Rois
 RequiredRois = [ctvT, ctvE, itvT, itvE, bladder, bowel, sacrum, pelvicCouchModel]
-
+# --- the following ROIs may or may not exist, but if they do exist they must have finite volume
+VariableRois = [itvP, ctvP]
 # --- the script shall REGENERATE each of the following Rois each time
 #therefore if they already exist, delete first
 ScriptedRois = [external, femHeadLeft, femHeadRight, ptvT, ptvP, ptvE, transitionTPtoE, wall5mmPtvE, complementExt5mmPtvE]
@@ -78,7 +79,17 @@ for r in RequiredRois:
 		if v < minVolume :
 			raise Exception('The volume of '+r+' seems smaller than required ('+minVolume+'cc).')
 	except Exception :
-		raise Exception('Please check structure set : '+r+' appears to be too small.')
+		raise Exception('Please check structure set : '+r+' does not exist.')
+#
+for r in VariableRois:
+	try :
+		v = rois.RoiGeometries[r].GetRoiVolume()
+		if v > 0 :
+			print 'Structure '+r+' found, and has volume '+v+' cc.'
+		else:
+			raise Exception('The structure '+r+' exists but does not appear to have volume!')
+	except Exception :
+		print 'No structure '+r+' defined. Continues ....')
 #
 for sr in ScriptedRois:
 	try:
@@ -152,7 +163,7 @@ try:
 	rois.RoiGeometries[itvP].GetRoiVolume()
 	CreateMarginPtvP(pm,examination)
 except Exception:
-	print 'The structure ITV-P has not been defined therefor PTV-P not created.'
+	print 'The structure ITV-P has not been defined therefore PTV-P not created.'
 #
 CreateTransitionTPtoE(pm,examination,rois)
 #

@@ -83,12 +83,13 @@ for r in RequiredRois:
 #
 for r in VariableRois:
 	try :
-		v = rois.RoiGeometries[r].OfRoi.RoiNumber
-		if rois.RoiGeometries[r].HasContours():
+		rg = rois.RoiGeometries[r]
+		try:
+			ps = rg.PrimaryShape.Contours
 			print 'Structure '+r+' found, and has contour(s) drawn.'
-		else:
+		except Exception :
 			raise Exception('Structure '+r+' exists but has no contours - please fix this or delete the structure!')
-	except Exception:
+	except Exception :
 		print 'The variable structure '+r+' does not exist. Continues ....'
 #
 for sr in ScriptedRois:

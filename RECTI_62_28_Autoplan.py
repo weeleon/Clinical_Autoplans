@@ -89,7 +89,7 @@ for r in VariableRois:
 		else:
 			raise Exception('The structure '+r+' exists but does not appear to have volume!')
 	except Exception :
-		print 'No structure '+r+' defined. Continues ....')
+		print 'No structure '+r+' defined. Continues ....'
 #
 for sr in ScriptedRois:
 	try:

@@ -83,13 +83,13 @@ for r in RequiredRois:
 #
 for r in VariableRois:
 	try :
-		v = rois.RoiGeometries[r].GetRoiVolume()
-		if v > 0 :
-			print 'Structure '+r+' found, and has volume '+v+' cc.'
+		rg = rois.RoiGeometries[r]
+		if rg.HasContours():
+			print 'Structure '+r+' found, and has contour(s) drawn.'
 		else:
-			raise Exception('The structure '+r+' exists but does not appear to have volume!')
+			raise Exception('Structure '+r+' exists but has no contours - please fix this or delete the structure!')
 	except Exception :
-		print 'No structure '+r+' defined. Continues ....'
+		print 'The variable structure '+r+' does not exist. Continues ....'
 #
 for sr in ScriptedRois:
 	try:

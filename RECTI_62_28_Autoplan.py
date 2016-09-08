@@ -32,7 +32,7 @@ rois = pm.StructureSets[examination.Name]
 # --- the plan shall NOT be made without the following required Rois
 RequiredRois = [ctvT, ctvE, itvT, itvE, bladder, bowel, sacrum, pelvicCouchModel]
 # --- the following ROIs may or may not exist, but if they do exist they must have finite volume
-VariableRois = [itvP, ctvP]
+VariableRois = [itvP, ctvP, testes, penileBulb, vagina]
 # --- the script shall REGENERATE each of the following Rois each time
 #therefore if they already exist, delete first
 ScriptedRois = [external, femHeadLeft, femHeadRight, ptvT, ptvP, ptvE, transitionTPtoE, wall5mmPtvE, complementExt5mmPtvE]
@@ -81,16 +81,17 @@ for r in RequiredRois:
 	except Exception :
 		raise Exception('Please check structure set : '+r+' does not exist.')
 #
-for r in VariableRois:
-	try :
-		rg = rois.RoiGeometries[r]
-		try:
-			ps = rg.PrimaryShape.Contours
-			print 'Structure '+r+' found, and has contour(s) drawn.'
-		except Exception :
-			raise Exception('Structure '+r+' exists but has no contours - please fix this or delete the structure!')
-	except Exception :
-		print 'The variable structure '+r+' does not exist. Continues ....'
+numEmpty = 0
+for rg in rois.RoiGeometries:
+	for v in VariableRois:
+		if (rg.OfRoi.Name == v):
+			if (rg.HasContours):
+				print 'Structure '+v+' exists and has contours.'
+			else:
+				numEmpty = numEmpty + 1
+if (numEmpty > 0):
+	raise Exception('Some optional structures are currently defined, that have no contours!')
+#
 #
 for sr in ScriptedRois:
 	try:

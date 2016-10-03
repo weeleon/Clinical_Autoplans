@@ -191,7 +191,15 @@ pm.MBSAutoInitializer(MbsRois=[
 pm.AdaptMbsMeshes(Examination=examination, RoiNames=[femHeadLeft, femHeadRight], CustomStatistics=None, CustomSettings=None)
 #
 # ---------- GROW RECTAL HELP VOLUME FOR IGRT
-Create2DWallOrgan(pm,examination,rectum,hvRect,colourHvRect,1.0,1.0)
+try:
+	pm.CreateRoi(Name=hvRect, Color=colourHvRect, Type="Organ", TissueName=None, RoiMaterial=None)
+	pm.RegionsOfInterest[hvRect].SetAlgebraExpression(
+		ExpressionA={ 'Operation': "Union", 'SourceRoiNames': [rectum], 'MarginSettings': { 'Type': "Expand", 'Superior': 0, 'Inferior': 0, 'Anterior': 1.0, 'Posterior': 1.0, 'Right': 1.0, 'Left': 1.0 } },
+		ExpressionB={ 'Operation': "Union", 'SourceRoiNames': [rectum], 'MarginSettings': { 'Type': "Contract", 'Superior': 0, 'Inferior': 0, 'Anterior': 1.0, 'Posterior': 1.0, 'Right': 1.0, 'Left': 1.0 } },
+		ResultOperation="Subtraction", ResultMarginSettings={ 'Type': "Expand", 'Superior': 0, 'Inferior': 0, 'Anterior': 0, 'Posterior': 0, 'Right': 0, 'Left': 0 })
+	pm.RegionsOfInterest[hvRect].UpdateDerivedGeometry(Examination=examination)
+except Exception:
+	print 'Failed to generate HV-Rectum. Continues...'
 #
 # ---------- GROW ALL REQUIRED PTVs
 #
@@ -209,11 +217,11 @@ CreateAnisotropicExpansionType(pm,examination,ctvE,ptvE,colourPtvE,"PTV",0.8,0.8
 #
 # union PTV-SVE
 #CreateSimpleUnionType(pm,exam,targetRoi,targetColour,targetType,sourceA,sourceB):
-CreateSimpleUnionType(pm,examination,ptvSVE,colourPtvSVE,"PTV",ptvSV,ptvE):
+CreateSimpleUnionType(pm,examination,ptvSVE,colourPtvSVE,"PTV",ptvSV,ptvE)
 #
 # union PTV-TSVE
 #CreateSimpleUnionType(pm,exam,targetRoi,targetColour,targetType,sourceA,sourceB):
-CreateSimpleUnionType(pm,examination,ptvTSVE,colourPtvTSVE,"PTV",ptvT,ptvSVE):
+CreateSimpleUnionType(pm,examination,ptvTSVE,colourPtvTSVE,"PTV",ptvT,ptvSVE)
 #
 # margin transition for high-dose to low-dose ptv
 #MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):

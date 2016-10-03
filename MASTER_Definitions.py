@@ -135,21 +135,6 @@ def IndexOfMaterial(mlist,matl):
 	return mindex
 #
 #
-def Create2DWallOrgan(pm,exam,sourceRoi,targetRoi,targetColour,inMargin,outMargin):
-# generic function that creates a 2D donut structure from sourceRoi
-# outputs results as targetRoi of default type Organ and set colour targetColour
-# contract inwards with an isotropic 2D margin of inMargin >= 0
-# and expand outwards with an isotropic 2D margin of outMargin >= 0
-	try:
-		pm.CreateRoi(Name=targetRoi, Color=targetColour, Type="Organ", TissueName=None, RoiMaterial=None)
-		pm.RegionsOfInterest[targetRoi].SetAlgebraExpression(
-			ExpressionA={ 'Operation': "Union", 'SourceRoiNames': [sourceRoi], 'MarginSettings': { 'Type': "Expand", 'Superior': 0, 'Inferior': 0, 'Anterior': outMargin, 'Posterior': outMargin, 'Right': outMargin, 'Left': outMargin } },
-			ExpressionB={ 'Operation': "Union", 'SourceRoiNames': [SourceRoi], 'MarginSettings': { 'Type': "Contract", 'Superior': 0, 'Inferior': 0, 'Anterior': inMargin, 'Posterior': inMargin, 'Right': inMargin, 'Left': inMargin } },
-			ResultOperation="Subtraction", ResultMarginSettings={ 'Type': "Expand", 'Superior': 0, 'Inferior': 0, 'Anterior': 0, 'Posterior': 0, 'Right': 0, 'Left': 0 })
-		pm.RegionsOfInterest[targetRoi].UpdateDerivedGeometry(Examination=exam)
-	except Exception:
-		print 'Failed to generate '+targetRoi+'. Continues...'
-#procedure Create2DWallOrgan ends
 #
 #
 def Create3DWallOrgan(pm,exam,sourceRoi,targetRoi,targetColour,inMargin,outMargin):

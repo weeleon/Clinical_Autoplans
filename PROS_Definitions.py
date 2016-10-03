@@ -58,7 +58,7 @@ colourMarker6 = "128,0,255"
 #
 # --- rectum expansion/contraction help volume for therapists
 hvRect = 'HV-Rectum'
-colourHvRect = "red"
+colourHvRect = "Red"
 #
 # --- target volume transitions for elective irradiation
 transitionTSVtoE = 'PTV-E-(PTV-TSV+8mm)'

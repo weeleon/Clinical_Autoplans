@@ -77,7 +77,7 @@ testes = 'OR; Testis'
 colourTestes = "24,192,128"
 #
 # --- vagina
-testes = 'OR; Vagina'
+vagina = 'OR; Vagina'
 colourTestes = "128,0,128"
 #
 # --- carbon fibre couch model

@@ -76,6 +76,10 @@ colourOsSacrum = "0,66,0"
 testes = 'OR; Testis'
 colourTestes = "24,192,128"
 #
+# --- vagina
+testes = 'OR; Vagina'
+colourTestes = "128,0,128"
+#
 # --- carbon fibre couch model
 pelvicCouchModel = 'ContesseCouch-Pelvine'
 #

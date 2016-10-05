@@ -80,8 +80,31 @@ def SetVmatOptimizationParameters(op):
 		op.SegmentConversion.ArcConversionProperties.UseMaxLeafTravelDistancePerDegree = 'True'
 		op.SegmentConversion.ArcConversionProperties.MaxLeafTravelDistancePerDegree = 0.40
 	except Exception:
-		raise Exception('Error - could not set optimization parameters by script.')
+		raise Exception('Error - could not set VMAT optimization parameters by script.')
 #
+#
+# all recti autoplans use the same default IMRT StepNShoot optimization settings
+#
+def SetImrtOptimizationParameters(op):
+	try:
+		# standard number of run iterations
+		op.Algorithm.MaxNumberOfIterations = 40
+		# standard optimality tolerance level
+		op.Algorithm.OptimalityTolerance = 1E-05
+		# set to compute intermediate and final dose
+		op.DoseCalculation.ComputeFinalDose = 'True'
+		op.DoseCalculation.ComputeIntermediateDose = 'True'
+		# set number of iterations in preparation phase for DMPO
+		op.DoseCalculation.IterationsInPreparationsPhase = 7
+		# - constrain SMLC segmentation parameters for machine deliverability
+		op.SegmentConversion.MaxNumberOfSegments = 80
+		op.SegmentConversion.MinEquivalentSquare = 2
+		op.SegmentConversion.MinLeafEndSeparation = 0.5
+		op.SegmentConversion.MinNumberOfOpenLeafPairs = 4
+		op.SegmentConversion.MinSegmentArea = 4
+		op.SegmentConversion.MinSegmentMUPerFraction = 4
+	except Exception:
+		raise Exception('Error - could not set IMRT optimization parameters by script.')
 #
 #
 #

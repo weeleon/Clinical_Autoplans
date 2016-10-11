@@ -221,7 +221,7 @@ CreateAnisotropicExpansionType(pm,examination,ctvE,ptvE,colourPtvE,"PTV",0.8,0.8
 #
 # union PTV-TSVE
 #CreateSimpleUnionType(pm,exam,targetRoi,targetColour,targetType,sourceA,sourceB):
-CreateSimpleUnionType(pm,examination,ptvTSVE,colourPtvTSVE,"PTV",ptvT,ptvSVE)
+CreateSimpleUnionType(pm,examination,ptvTSVE,colourPtvTSVE,"PTV",ptvTSV,ptvE)
 #
 # margin transition for high-dose to low-dose ptv
 #MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):

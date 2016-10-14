@@ -20,13 +20,23 @@ colourPtvP = "112,102,232"
 #
 # --- elective pelvic lymph nodes
 ctvE = 'CTV-E'
+ctvEiSin = 'CTV-Ei-Sin'
+ctvEiDxt = 'CTV-Ei-Dxt'
 colourCtvE = "255,81,81"
 #
 itvE = 'ITV-E'
+itvEiSin = 'ITV-Ei-Sin'
+itvEiDxt = 'ITV-Ei-Dxt'
 colourItvE = "0,0,220"
 #
 ptvE = 'PTV-E'
+ptvEiSin = 'PTV-Ei-Sin'
+ptvEiDxt = 'PTV-Ei-Dxt'
+ptvEsum = 'PTV-E-sum'
 colourPtvE = "126,130,239"
+#
+#
+#
 #
 #
 # --- target volume transitions for elective irradiation
@@ -45,6 +55,7 @@ complementExt5mmPtvE = 'Ext-(PTV-E+5mm)'
 #
 # DEFINE THE STANDARD COLLIMATOR ANGLE FOR VMAT ARCS IN PROSTATE
 defaultRectiCollAngle = 30
+defaultAniCollAngle = 15
 #
 #
 # DEFINE THE STANDARD CLINICAL TEMPLATES FOR PLANNING OBJECTIVES

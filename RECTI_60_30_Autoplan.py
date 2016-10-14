@@ -192,7 +192,7 @@ IsotropicExpansionClipSkinType(pm,examination,itvE,0.3,ptvE,colourPtvE,"PTV",ext
 # only if ITV-P exists then create PTV-P as a margin expansion
 try:
 	rois.RoiGeometries[itvP].GetRoiVolume()
-	IsotropicExpansionClipSkinType(pm,examination,itvP,0.5,ptvP,colourPtvP,"PTV",external,0.5)
+	CreateIsotropicExpansionType(pm,examination,itvP,ptvP,colourPtvP,"PTV",0.5)
 except Exception:
 	print 'The structure ITV-P has not been defined therefore PTV-P not created. Continues ...'
 #

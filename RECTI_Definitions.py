@@ -64,6 +64,7 @@ defaultClinicalGoalsRect62 = 'Recti_62Gy_Clinical_Goals_Template'
 defaultClinicalGoalsRect60 = 'Recti_60Gy_Clinical_Goals_Template'
 defaultClinicalGoalsRect50 = 'Recti_50Gy_Clinical_Goals_Template'
 defaultClinicalGoalsRect25 = 'Recti_25Gy_Clinical_Goals_Template'
+defaultClinicalGoalsAni60 = 'Ani_60Gy_Clinical_Goals_Template'
 # 
 # 
 # 
@@ -72,6 +73,7 @@ defaultOptimVmatRect62 = 'Recti_62Gy_VMAT_2arc_Optimization'
 defaultOptimVmatRect60 = 'Recti_60Gy_VMAT_2arc_Optimization'
 defaultOptimVmatRect50 = 'Recti_50Gy_VMAT_2arc_Optimization'
 defaultOptimVmatRect25 = 'Recti_25Gy_VMAT_2arc_Optimization'
+defaultOptimVmatAni60 = 'Ani_60Gy_VMAT_2arc_Optimization'
 #
 #
 #

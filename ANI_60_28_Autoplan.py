@@ -295,11 +295,11 @@ patient.Save()
 
 
 # 9. Set a predefined template directly from the clinical database for v.5.0.2
-plan.TreatmentCourse.EvaluationSetup.ApplyClinicalGoalTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultClinicalGoalsRect62])
+plan.TreatmentCourse.EvaluationSetup.ApplyClinicalGoalTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultClinicalGoalsAni60])
 
 
 # 10. import optimization functions from a predefined template
-plan.PlanOptimizations[0].ApplyOptimizationTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultOptimVmatRect62])
+plan.PlanOptimizations[0].ApplyOptimizationTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultOptimVmatAni60])
 
 
 # 11. set opt parameters and run first optimization for the VMAT plan
@@ -381,10 +381,10 @@ patient.Save()
 # 
 # 
 # 9. Set a predefined template directly from the clinical database for v.5.0.2
-plan.TreatmentCourse.EvaluationSetup.ApplyClinicalGoalTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultClinicalGoalsRect62])
+plan.TreatmentCourse.EvaluationSetup.ApplyClinicalGoalTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultClinicalGoalsAni60])
 # 
 # 10. import optimization functions from a predefined template
-plan.PlanOptimizations[0].ApplyOptimizationTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultOptimVmatRect62])
+plan.PlanOptimizations[0].ApplyOptimizationTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultOptimVmatAni60])
 # 
 # 11. set opt parameters and run first optimization for the IMRT plan
 optimPara = plan.PlanOptimizations[0].OptimizationParameters #shorter handle

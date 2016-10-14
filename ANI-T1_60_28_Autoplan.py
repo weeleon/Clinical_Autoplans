@@ -55,10 +55,10 @@ RequiredRois = [ctvT, itvT, bladder, bowel, sacrum, pelvicCouchModel]
 VariableRois = [testes, penileBulb, vagina]
 
 # --- the script shall REGENERATE each of the following Rois each time therefore if they already exist, delete first
-ScriptedRois = [external, femHeadLeft, femHeadRight, ptvT, wall5mmPtvE, complementExt5mmPtvE]
+ScriptedRois = [external, femHeadLeft, femHeadRight, ptvT, wall5mmPtvT, complementExt5mmPtvT]
 
 #the following structures are excluded from DICOM export to the linear acc to help the nurses
-ExcludedRois = [wall5mmPtvE, complementExt5mmPtvE]
+ExcludedRois = [wall5mmPtvT, complementExt5mmPtvT]
 
 #the following ROIs are generated as intermediate processes, and should be removed before running the script
 TemporaryRois = ['temp_ext', 'supports', 'temp_wall']

@@ -161,6 +161,9 @@ try:
 	OverrideFiducialsDensity(pm,examination,index)
 except Exception:
 	print 'Failed to complete soft tissue density override around fiducials markers. Continues...'
+# ------- MAKE MASK ROI REGION AROUND IMPLANTED GOLD MARKERS
+CreateUnionMaskRegionForMarkers(pm,examination,1.0)
+
 
 
 # 4. Grow all required structures from the initial set

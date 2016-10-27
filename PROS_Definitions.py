@@ -263,42 +263,36 @@ def CreateUnionMaskRegionForMarkers(pm,exam,radii):
 		coord = pm.StructureSets[exam.Name].PoiGeometries[fiducial1].Point
 		pm.CreateRoi(Name='maskroi_1', Color="Fuchsia", Type="Marker", TissueName=None, RoiMaterial=None)
 		pm.RegionsOfInterest['maskroi_1'].CreateSphereGeometry( Radius=radii, Examination=exam, Center={'x':coord.x, 'y':coord.y, 'z':coord.z} )
-		pm.RegionsOfInterest['maskroi_1'].UpdateDerivedGeometry(Examination=exam)
 	except Exception:
 		print 'Failed to generate mask roi for Marker 1. Continues...'
 	try :
 		coord = pm.StructureSets[exam.Name].PoiGeometries[fiducial2].Point
 		pm.CreateRoi(Name='maskroi_2', Color="Fuchsia", Type="Marker", TissueName=None, RoiMaterial=None)
 		pm.RegionsOfInterest['maskroi_2'].CreateSphereGeometry( Radius=radii, Examination=exam, Center={'x':coord.x, 'y':coord.y, 'z':coord.z} )
-		pm.RegionsOfInterest['maskroi_2'].UpdateDerivedGeometry(Examination=exam)
 	except Exception:
 		print 'Failed to generate mask roi for Marker 2. Continues...'
 	try :
 		coord = pm.StructureSets[exam.Name].PoiGeometries[fiducial3].Point
 		pm.CreateRoi(Name='maskroi_3', Color="Fuchsia", Type="Marker", TissueName=None, RoiMaterial=None)
 		pm.RegionsOfInterest['maskroi_3'].CreateSphereGeometry( Radius=radii, Examination=exam, Center={'x':coord.x, 'y':coord.y, 'z':coord.z} )
-		pm.RegionsOfInterest['maskroi_3'].UpdateDerivedGeometry(Examination=exam)
 	except Exception:
 		print 'Failed to generate mask roi for Marker 3. Continues...'
 	try :
 		coord = pm.StructureSets[exam.Name].PoiGeometries[fiducial4].Point
 		pm.CreateRoi(Name='maskroi_4', Color="Fuchsia", Type="Marker", TissueName=None, RoiMaterial=None)
 		pm.RegionsOfInterest['maskroi_4'].CreateSphereGeometry( Radius=radii, Examination=exam, Center={'x':coord.x, 'y':coord.y, 'z':coord.z} )
-		pm.RegionsOfInterest['maskroi_4'].UpdateDerivedGeometry(Examination=exam)
 	except Exception:
 		print 'Failed to generate mask roi for Marker 4. Continues...'
 	try :
 		coord = pm.StructureSets[exam.Name].PoiGeometries[fiducial5].Point
 		pm.CreateRoi(Name='maskroi_5', Color="Fuchsia", Type="Marker", TissueName=None, RoiMaterial=None)
 		pm.RegionsOfInterest['maskroi_5'].CreateSphereGeometry( Radius=radii, Examination=exam, Center={'x':coord.x, 'y':coord.y, 'z':coord.z} )
-		pm.RegionsOfInterest['maskroi_5'].UpdateDerivedGeometry(Examination=exam)
 	except Exception:
 		print 'Failed to generate mask roi for Marker 5. Continues...'
 	try :
 		coord = pm.StructureSets[exam.Name].PoiGeometries[fiducial6].Point
 		pm.CreateRoi(Name='maskroi_6', Color="Fuchsia", Type="Marker", TissueName=None, RoiMaterial=None)
 		pm.RegionsOfInterest['maskroi_6'].CreateSphereGeometry( Radius=radii, Examination=exam, Center={'x':coord.x, 'y':coord.y, 'z':coord.z} )
-		pm.RegionsOfInterest['maskroi_6'].UpdateDerivedGeometry(Examination=exam)
 	except Exception:
 		print 'Failed to generate mask roi for Marker 6. Continues...'
 	#aggregation - list of all structures in examination

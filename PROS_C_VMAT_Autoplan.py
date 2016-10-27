@@ -47,7 +47,7 @@ RequiredRois = [ctvT, ctvSV, rectum, bladder, analCanal, penileBulb, testes, pel
 
 # --- the script shall REGENERATE each of the following Rois each time
 #therefore if they already exist, delete first
-ScriptedRois = ['temp_ext', 'supports', external, femHeadLeft, femHeadRight, hvRect, marker1, marker2, marker3, marker4, marker5, marker6, ptvT, ptvSV, ptvTSV, wall5mmPtvTSV, complementExt5mmPtvTSV]
+ScriptedRois = ['temp_ext', 'supports', external, femHeadLeft, femHeadRight, hvRect, marker1, marker2, marker3, marker4, marker5, marker6, ptvT, ptvSV, ptvTSV, wall5mmPtvTSV, complementExt5mmPtvTSV, maskRoi]
 
 #the following structures are excluded from DICOM export to the linear acc to help the nurses
 ExcludedRois = [wall5mmPtvTSV, complementExt5mmPtvTSV]

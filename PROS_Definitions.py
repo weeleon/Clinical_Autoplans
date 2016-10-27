@@ -304,6 +304,7 @@ def CreateUnionMaskRegionForMarkers(pm,exam,radii):
 	mList = ['maskroi_1','maskroi_2','maskroi_3','maskroi_4','maskroi_5','maskroi_6']
 	#aggregation - intersection of the two sets
 	uList = set(aList).intersection(mList)
+	uList = list(uList)
 	#aggregation - make union MaskROI
 	try:
 		pm.CreateRoi(Name=maskRoi, Color=colourMaskRoi, Type="Marker", TissueName=None, RoiMaterial=None)

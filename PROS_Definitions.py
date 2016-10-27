@@ -309,7 +309,7 @@ def CreateUnionMaskRegionForMarkers(pm,exam,radii):
 		pm.CreateRoi(Name=maskRoi, Color=colourMaskRoi, Type="Marker", TissueName=None, RoiMaterial=None)
 		pm.RegionsOfInterest[maskRoi].SetAlgebraExpression(
 			ExpressionA={ 'Operation': "Union", 'SourceRoiNames': uList, 'MarginSettings': { 'Type': "Expand", 'Superior': 0, 'Inferior': 0, 'Anterior': 0, 'Posterior': 0, 'Right': 0, 'Left': 0 } },
-			ExpressionB={ 'Operation': "Union", 'SourceRoiNames': [], 'MarginSettings': { 'Type': "Expand", 'Superior': 0, 'Inferior': 0, 'Anterior': 0, 'Posterior': 0, 'Right': 0, 'Left': 0 } },
+			ExpressionB={ 'Operation': "Union", 'SourceRoiNames': uList, 'MarginSettings': { 'Type': "Expand", 'Superior': 0, 'Inferior': 0, 'Anterior': 0, 'Posterior': 0, 'Right': 0, 'Left': 0 } },
 			ResultOperation="None", ResultMarginSettings={ 'Type': "Expand", 'Superior': 0, 'Inferior': 0, 'Anterior': 0, 'Posterior': 0, 'Right': 0, 'Left': 0 })
 		pm.RegionsOfInterest[maskRoi].UpdateDerivedGeometry(Examination=exam)
 	except Exception:

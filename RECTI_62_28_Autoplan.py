@@ -1,4 +1,3 @@
-import math
 # set script environment
 import math
 from connect import *
@@ -236,8 +235,8 @@ MarginSubtractionType(pm,examination,complementExt5mmPtvE,colourComplementExtern
 #
 # ---------- GROW COMPLEMENTARY BOWEL STRUCTURES
 #MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):
-MarginSubtractionType(pm,examination,complementBowel5mmPtvE,colourBowel,"Organ",bowel,0.0,ptvE,0.5):
-MarginSubtractionType(pm,examination,complementBowel0mmPtvE,colourBowel,"Organ",bowel,0.0,ptvE,0.0):
+MarginSubtractionType(pm,examination,complementBowel5mmPtvE,colourBowel,"Organ",bowel,0.0,ptvE,0.5)
+MarginSubtractionType(pm,examination,complementBowel0mmPtvE,colourBowel,"Organ",bowel,0.0,ptvE,0.0)
 #
 #
 #-------------- Exclude help rois used only for planning and optimization from dicom export

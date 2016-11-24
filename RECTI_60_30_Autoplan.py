@@ -1,4 +1,3 @@
-import math
 # set script environment
 import math
 from connect import *
@@ -39,8 +38,9 @@ examinationName = examination.Name
 #
 #
 
-#### RECTAL CANCER 60GY PROTOCOL
-#### 60Gy/30F Normo-fractionated prescribed to all PTVs
+#### RECTAL CANCER WATCHFUL WAITING 2 PROTOCOL
+#### 60Gy/30F Normo-fractionated prescribed to PTV-(T+P)
+#### As simultaneous boost to PTV-E of 50Gy/30F
 #### Implemented as a dual-arc VMAT solution
 
 #
@@ -56,13 +56,13 @@ RequiredRois = [ctvT, ctvE, itvT, itvE, bladder, bowel, sacrum, pelvicCouchModel
 VariableRois = [itvP, ctvP, testes, penileBulb, vagina]
 
 # --- the script shall REGENERATE each of the following Rois each time therefore if they already exist, delete first
-ScriptedRois = [external, femHeadLeft, femHeadRight, ptvT, ptvP, ptvE, wall5mmPtvE, complementExt5mmPtvE,complementBowel0mmPtvE, complementBowel5mmPtvE]
+ScriptedRois = [external, femHeadLeft, femHeadRight, ptvT, ptvP, ptvE, transitionTPtoE, wall5mmPtvE, complementExt5mmPtvE,complementBowel0mmPtvE, complementBowel5mmPtvE]
 
 #the following structures are excluded from DICOM export to the linear acc to help the nurses
-ExcludedRois = [wall5mmPtvE, complementExt5mmPtvE,complementBowel0mmPtvE, complementBowel5mmPtvE]
+ExcludedRois = [wall5mmPtvE, complementExt5mmPtvE, complementBowel0mmPtvE, complementBowel5mmPtvE]
 
 #the following ROIs are generated as intermediate processes, and should be removed before running the script
-TemporaryRois = ['temp_ext', 'temp_wall', 'supports']
+TemporaryRois = ['temp_ext', 'temp_wall', 'supports', 'temp_ptv']
 
 #
 #
@@ -196,22 +196,22 @@ try:
 except Exception:
 	print 'The structure ITV-P has not been defined therefore PTV-P not created. Continues ...'
 #
-# transition PTV-(P+T) to PTV-E is NOT REQUIRED HERE
-# try:
-# 	rois.RoiGeometries[ptvP].GetRoiVolume() #only works if PTV-P exists
-# 	#the transition is between PTV-(T+P) to PTV-E with 5mm
-# 	#
-# 	CreateSimpleUnionType(pm,examination,'temp_ptv',colourPtvE,"PTV",ptvT,ptvP)
-# 	#
-# 	#MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):
-# 	MarginSubtractionType(pm,examination,transitionTPtoE,colourPtvE,"PTV",ptvE,0.0,'temp_ptv',0.5)
-# 	#
-# 	pm.RegionsOfInterest['temp_ptv'].DeleteRoi()
-# 	#
-# except Exception:
-# 	#the transition is only from PTV-T to PTV-E with 5mm
-# 	#MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):
-# 	MarginSubtractionType(pm,examination,transitionTPtoE,colourPtvE,"PTV",ptvE,0.0,ptvT,0.5)
+# transition PTV-(P+T) to PTV-E
+try:
+	rois.RoiGeometries[ptvP].GetRoiVolume() #only works if PTV-P exists
+	#the transition is between PTV-(T+P) to PTV-E with 5mm
+	#
+	CreateSimpleUnionType(pm,examination,'temp_ptv',colourPtvE,"PTV",ptvT,ptvP)
+	#
+	#MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):
+	MarginSubtractionType(pm,examination,transitionTPtoE,colourPtvE,"PTV",ptvE,0.0,'temp_ptv',0.5)
+	#
+	pm.RegionsOfInterest['temp_ptv'].DeleteRoi()
+	#
+except Exception:
+	#the transition is only from PTV-T to PTV-E with 5mm
+	#MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):
+	MarginSubtractionType(pm,examination,transitionTPtoE,colourPtvE,"PTV",ptvE,0.0,ptvT,0.5)
 #
 # ---------- GROW WALL STRUCTURES
 #
@@ -233,11 +233,11 @@ except Exception:
 #MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):
 MarginSubtractionType(pm,examination,complementExt5mmPtvE,colourComplementExternal,"Organ",external,0.0,ptvE,0.5)
 #
-#
 # ---------- GROW COMPLEMENTARY BOWEL STRUCTURES
 #MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):
-MarginSubtractionType(pm,examination,complementBowel5mmPtvE,colourBowel,"Organ",bowel,0.0,ptvE,0.5):
-MarginSubtractionType(pm,examination,complementBowel0mmPtvE,colourBowel,"Organ",bowel,0.0,ptvE,0.0):
+MarginSubtractionType(pm,examination,complementBowel5mmPtvE,colourBowel,"Organ",bowel,0.0,ptvE,0.5)
+MarginSubtractionType(pm,examination,complementBowel0mmPtvE,colourBowel,"Organ",bowel,0.0,ptvE,0.0)
+#
 #
 #-------------- Exclude help rois used only for planning and optimization from dicom export
 for e in ExcludedRois:
@@ -275,7 +275,7 @@ LoadPlanAndBeamSet(case, plan, beamSetArc1)
 # 8. Create beam list
 with CompositeAction('Create arc beam'):
 	# ----- no need to add prescription for dynamic delivery
-	beamSetArc1.AddDosePrescriptionToRoi(RoiName = ptvE, PrescriptionType="DoseAtVolume", DoseVolume=98, DoseValue = 5700, RelativePrescriptionLevel = 1, AutoScaleDose='False')
+	beamSetArc1.AddDosePrescriptionToRoi(RoiName = ptvT, PrescriptionType="DoseAtVolume", DoseVolume=99, DoseValue = 5890, RelativePrescriptionLevel = 1, AutoScaleDose='False')
 	#
 	# ----- set the plan isocenter to the centre of the reference ROI
 	isocenter = pm.StructureSets[examinationName].RoiGeometries[ptvE].GetCenterOfRoi()
@@ -286,11 +286,11 @@ patient.Save()
 
 
 # 9. Set a predefined template directly from the clinical database for v.5.0.2
-plan.TreatmentCourse.EvaluationSetup.ApplyClinicalGoalTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultClinicalGoalsRect60])
+plan.TreatmentCourse.EvaluationSetup.ApplyClinicalGoalTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultClinicalGoalsRect62])
 
 
 # 10. import optimization functions from a predefined template
-plan.PlanOptimizations[0].ApplyOptimizationTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultOptimVmatRect60])
+plan.PlanOptimizations[0].ApplyOptimizationTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultOptimVmatRect62])
 
 
 # 11. set opt parameters and run first optimization for the VMAT plan
@@ -329,7 +329,7 @@ patient.Save()
 # 
 # 5 - 7. Define unique plan, beamset and dosegrid
 # ---------- redefine the plan name parameter
-# planName = 'Recti60_30_fb'
+# planName = 'Recti62_28_fb'
 # planName = UniquePlanName(planName, case)
 # 
 # beamSetPrimaryName = planName #prepares a standard 8-fld StepNShoot IMRT
@@ -355,7 +355,7 @@ patient.Save()
 # 8. Create beam list
 # with CompositeAction('Create StepNShoot beams'):
 # 	----- no need to add prescription for dynamic delivery
-# 	beamSetImrt.AddDosePrescriptionToRoi(RoiName = ptvE, PrescriptionType="DoseAtVolume", DoseVolume=98, DoseValue = 5700, RelativePrescriptionLevel = 1, AutoScaleDose='False')
+# 	beamSetImrt.AddDosePrescriptionToRoi(RoiName = ptvT, PrescriptionType="DoseAtVolume", DoseVolume=99, DoseValue = 5890, RelativePrescriptionLevel = 1, AutoScaleDose='False')
 # 	
 # 	----- set the plan isocenter to the centre of the reference ROI
 # 	isocenter = pm.StructureSets[examinationName].RoiGeometries[ptvE].GetCenterOfRoi()
@@ -375,10 +375,10 @@ patient.Save()
 # 
 # 
 # 9. Set a predefined template directly from the clinical database for v.5.0.2
-# plan.TreatmentCourse.EvaluationSetup.ApplyClinicalGoalTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultClinicalGoalsRect60])
+# plan.TreatmentCourse.EvaluationSetup.ApplyClinicalGoalTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultClinicalGoalsRect62])
 # 
 # 10. import optimization functions from a predefined template
-# plan.PlanOptimizations[0].ApplyOptimizationTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultOptimVmatRect60])
+# plan.PlanOptimizations[0].ApplyOptimizationTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultOptimVmatRect62])
 # 
 # 11. set opt parameters and run first optimization for the IMRT plan
 # optimPara = plan.PlanOptimizations[0].OptimizationParameters #shorter handle

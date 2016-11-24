@@ -251,6 +251,10 @@ except Exception:
 #MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):
 MarginSubtractionType(pm,examination,complementExt5mmPtvE,colourComplementExternal,"Organ",external,0.0,ptvEsum,0.5)
 #
+# ---------- GROW COMPLEMENTARY BOWEL STRUCTURES
+#MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):
+MarginSubtractionType(pm,examination,complementBowel5mmPtvE,colourBowel,"Organ",bowel,0.0,ptvE,0.5):
+MarginSubtractionType(pm,examination,complementBowel0mmPtvE,colourBowel,"Organ",bowel,0.0,ptvE,0.0):
 #
 #-------------- Exclude help rois used only for planning and optimization from dicom export
 for e in ExcludedRois:

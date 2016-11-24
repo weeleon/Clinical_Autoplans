@@ -52,11 +52,14 @@ wall8mmPtvE = 'Wall; PTV-E+8mm'
 complementExt5mmPtvT = 'Ext-(PTV-T+5mm)'
 complementExt5mmPtvE = 'Ext-(PTV-E+5mm)'
 #
+# --- complementary "bowel" structures outside targets for dose shaping
+complementBowel5mmPtvE = 'OR; Tarm-(PTV-E+5mm)'
+complementBowel0mmPtvE = 'OR; Tarm-(PTV-E)'
 #
 # DEFINE THE STANDARD COLLIMATOR ANGLE FOR VMAT ARCS IN PROSTATE
 defaultRectiCollAngle = 30
 defaultAniCollAngle = 15
-
+#
 #
 #
 # DEFINE THE STANDARD CLINICAL TEMPLATES FOR PLANNING OBJECTIVES

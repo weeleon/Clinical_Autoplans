@@ -55,10 +55,10 @@ RequiredRois = [ctvT, itvT, bladder, bowel, sacrum, pelvicCouchModel]
 VariableRois = [testes, penileBulb, vagina]
 
 # --- the script shall REGENERATE each of the following Rois each time therefore if they already exist, delete first
-ScriptedRois = [external, femHeadLeft, femHeadRight, ptvT, wall5mmPtvT, complementExt5mmPtvT]
+ScriptedRois = [external, femHeadLeft, femHeadRight, ptvT, wall5mmPtvT, complementExt5mmPtvT,complementBowel0mmPtvE, complementBowel5mmPtvE]
 
 #the following structures are excluded from DICOM export to the linear acc to help the nurses
-ExcludedRois = [wall5mmPtvT, complementExt5mmPtvT]
+ExcludedRois = [wall5mmPtvT, complementExt5mmPtvT,complementBowel0mmPtvE, complementBowel5mmPtvE]
 
 #the following ROIs are generated as intermediate processes, and should be removed before running the script
 TemporaryRois = ['temp_ext', 'supports', 'temp_wall']
@@ -205,6 +205,10 @@ except Exception:
 #MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):
 MarginSubtractionType(pm,examination,complementExt5mmPtvT,colourComplementExternal,"Organ",external,0.0,ptvT,0.5)
 #
+# ---------- GROW COMPLEMENTARY BOWEL STRUCTURES
+#MarginSubtractionType(pm,exam,targetRoi,targetColour,targetType,sourceA,marginA,sourceB,marginB):
+MarginSubtractionType(pm,examination,complementBowel5mmPtvE,colourBowel,"Organ",bowel,0.0,ptvE,0.5):
+MarginSubtractionType(pm,examination,complementBowel0mmPtvE,colourBowel,"Organ",bowel,0.0,ptvE,0.0):
 #
 #-------------- Exclude help rois used only for planning and optimization from dicom export
 for e in ExcludedRois:

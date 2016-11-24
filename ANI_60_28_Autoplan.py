@@ -56,10 +56,10 @@ RequiredRois = [ctvT, ctvE, itvT, itvE, itvEiSin, ctvEiSin, itvEiDxt, ctvEiDxt, 
 VariableRois = [itvP, ctvP, testes, penileBulb, vagina]
 
 # --- the script shall REGENERATE each of the following Rois each time therefore if they already exist, delete first
-ScriptedRois = [external, femHeadLeft, femHeadRight, ptvT, ptvP, ptvE, ptvEiSin, ptvEiDxt, ptvEsum, transitionTPtoE, wall5mmPtvE, complementExt5mmPtvE]
+ScriptedRois = [external, femHeadLeft, femHeadRight, ptvT, ptvP, ptvE, ptvEiSin, ptvEiDxt, ptvEsum, transitionTPtoE, wall5mmPtvE, complementExt5mmPtvE,complementBowel0mmPtvE, complementBowel5mmPtvE]
 
 #the following structures are excluded from DICOM export to the linear acc to help the nurses
-ExcludedRois = [wall5mmPtvE, complementExt5mmPtvE]
+ExcludedRois = [wall5mmPtvE, complementExt5mmPtvE,complementBowel0mmPtvE, complementBowel5mmPtvE]
 
 #the following ROIs are generated as intermediate processes, and should be removed before running the script
 TemporaryRois = ['temp_ext', 'temp_wall', 'supports', 'temp_ptv','temp_sum']
@@ -189,11 +189,15 @@ CreateIsotropicExpansionType(pm,examination,itvT,ptvT,colourPtvT,"PTV",0.3)
 #IsotropicExpansionClipSkinType(pm,exam,sourceRoi,sourceMargin,targetRoi,targetColour,targetType,skin,skinMargin):
 IsotropicExpansionClipSkinType(pm,examination,itvE,0.3,ptvE,colourPtvE,"PTV",external,0.5)
 #
-# create PTV-P as a margin expansion
-CreateIsotropicExpansionType(pm,examination,itvP,ptvP,colourPtvP,"PTV",0.5)
+# only if ITV-P exists then create PTV-P as a margin expansion
+try:
+	rois.RoiGeometries[itvP].GetRoiVolume()
+	CreateIsotropicExpansionType(pm,examination,itvP,ptvP,colourPtvP,"PTV",0.5)
+except Exception:
+	print 'The structure ITV-P has not been defined therefore PTV-P not created. Continues ...'
 #
 # create PTV-Ei-Sin as a margin expansion
-IsotropicExpansionClipSkinType(pm,examination,itvEiSin,0.5,ptvEiSin,colourPtvE,"PTV",external,0)
+IsotropicExpansionClipSkinType(pm,examination,itvEiSin,0.5,ptvEiSin,colourPtvE,"PTV",external,0.5)
 #
 # create PTV-Ei-Dxt as a margin expansion
 IsotropicExpansionClipSkinType(pm,examination,itvEiDxt,0.5,ptvEiDxt,colourPtvE,"PTV",external,0.5)

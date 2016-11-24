@@ -275,7 +275,7 @@ LoadPlanAndBeamSet(case, plan, beamSetArc1)
 # 8. Create beam list
 with CompositeAction('Create arc beam'):
 	# ----- no need to add prescription for dynamic delivery
-	beamSetArc1.AddDosePrescriptionToRoi(RoiName = ptvT, PrescriptionType="DoseAtVolume", DoseVolume=99, DoseValue = 5890, RelativePrescriptionLevel = 1, AutoScaleDose='False')
+	beamSetArc1.AddDosePrescriptionToRoi(RoiName = ptvT, PrescriptionType="DoseAtVolume", DoseVolume=99, DoseValue = 5700, RelativePrescriptionLevel = 1, AutoScaleDose='False')
 	#
 	# ----- set the plan isocenter to the centre of the reference ROI
 	isocenter = pm.StructureSets[examinationName].RoiGeometries[ptvE].GetCenterOfRoi()
@@ -286,11 +286,11 @@ patient.Save()
 
 
 # 9. Set a predefined template directly from the clinical database for v.5.0.2
-plan.TreatmentCourse.EvaluationSetup.ApplyClinicalGoalTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultClinicalGoalsRect62])
+plan.TreatmentCourse.EvaluationSetup.ApplyClinicalGoalTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultClinicalGoalsRect60])
 
 
 # 10. import optimization functions from a predefined template
-plan.PlanOptimizations[0].ApplyOptimizationTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultOptimVmatRect62])
+plan.PlanOptimizations[0].ApplyOptimizationTemplate(Template=patient_db.TemplateTreatmentOptimizations[defaultOptimVmatRect60])
 
 
 # 11. set opt parameters and run first optimization for the VMAT plan
